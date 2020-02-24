@@ -17,7 +17,19 @@ public class FileUtil {
      * 例如把a文件夹(a文件夹下有1.txt和一个空文件夹c)复制到b文件夹，复制完成以后b文件夹下也有一个1.txt和空文件夹c
      */
     public static void copyDirectory(File from, File to) throws IOException {
-//        File[] subFiles = from.listFiles();
+        if (!to.exists()) {
+            to.mkdir();
+        }
+        File[] subFiles = from.listFiles();
+        if (null != subFiles) {
+            for (File file : subFiles) {
+                if (file.isDirectory()) {
+                    copySingleFolder(file, to);
+                } else if (file.isFile()) {
+                    copySingleFile(file, to);
+                }
+            }
+        }
     }
 
     public static void copySingleFolder(File from, File to) {
