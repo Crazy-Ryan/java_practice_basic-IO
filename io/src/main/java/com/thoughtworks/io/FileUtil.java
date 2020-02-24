@@ -1,7 +1,11 @@
 package com.thoughtworks.io;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FileUtil {
 
@@ -20,5 +24,15 @@ public class FileUtil {
         new File(to, from.getName()).mkdir();
     }
 
+    public static void copySingleFile(File from, File to) throws IOException {
+        try (InputStream input = new FileInputStream(from);
+             OutputStream output = new FileOutputStream(new File(to, from.getName()))
+        ) {
+            int byteRead;
+            while ((byteRead = input.read()) != -1) {
+                output.write(byteRead);
+            }
+        }
+    }
 
 }
