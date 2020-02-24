@@ -25,6 +25,7 @@ public class FileUtil {
             for (File file : subFiles) {
                 if (file.isDirectory()) {
                     copySingleFolder(file, to);
+                    copyDirectory(file, new File(to,file.getName()));
                 } else if (file.isFile()) {
                     copySingleFile(file, to);
                 }
